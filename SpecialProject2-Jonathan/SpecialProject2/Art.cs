@@ -16,6 +16,7 @@ namespace SpecialProject2
         private int length;
         private int height;
         private int drawMode;
+        private bool fill;
 
         public Art()
         {
@@ -24,6 +25,7 @@ namespace SpecialProject2
             setLength(100);
             setHeight(100);
             setDrawMode(0);
+            setFill(false);
         }
 
         public void setButtonDrawX(int val)
@@ -50,6 +52,11 @@ namespace SpecialProject2
 
         public void setMouseDrawX1(int val)
         {
+            if (val < 1)
+                val = 1;
+            else if (val > 633)
+                val = 633;
+
             mouseDraw1.X = val;
         }
 
@@ -60,6 +67,11 @@ namespace SpecialProject2
 
         public void setMouseDrawY1(int val)
         {
+            if (val < 1)
+                val = 1;
+            else if (val > 460)
+                val = 460;
+
             mouseDraw1.Y = val;
         }
 
@@ -70,6 +82,11 @@ namespace SpecialProject2
 
         public void setMouseDrawX2(int val)
         {
+            if (val < 1)
+                val = 1;
+            else if (val > 633)
+                val = 633;
+
             mouseDraw2.X = val;
         }
 
@@ -80,6 +97,11 @@ namespace SpecialProject2
 
         public void setMouseDrawY2(int val)
         {
+            if (val < 1)
+                val = 1;
+            else if (val > 460)
+                val = 460;
+
             mouseDraw2.Y = val;
         }
 
@@ -118,6 +140,16 @@ namespace SpecialProject2
         public int getDrawMode()
         {
             return drawMode;
+        }
+
+        public void setFill(bool val)
+        {
+            fill = val;
+        }
+
+        public bool getFill()
+        {
+            return fill;
         }
     }
 }

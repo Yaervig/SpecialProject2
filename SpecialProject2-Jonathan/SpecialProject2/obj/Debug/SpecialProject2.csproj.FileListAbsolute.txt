@@ -8,3 +8,13 @@ C:\Users\Yaervig\Desktop\SpecialProject2-master\SpecialProject2\obj\Debug\Specia
 C:\Users\Yaervig\Desktop\SpecialProject2-master\SpecialProject2\obj\Debug\SpecialProject2.csproj.CoreCompileInputs.cache
 C:\Users\Yaervig\Desktop\SpecialProject2-master\SpecialProject2\obj\Debug\SpecialProject2.exe
 C:\Users\Yaervig\Desktop\SpecialProject2-master\SpecialProject2\obj\Debug\SpecialProject2.pdb
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\bin\Debug\SpecialProject2.exe.config
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\bin\Debug\SpecialProject2.exe
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\bin\Debug\SpecialProject2.pdb
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.csproj.AssemblyReference.cache
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.Form1.resources
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.Properties.Resources.resources
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.csproj.GenerateResource.cache
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.csproj.CoreCompileInputs.cache
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.exe
+C:\Users\Yaervig\Desktop\SpecialProject2-Jonathan\SpecialProject2\obj\Debug\SpecialProject2.pdb

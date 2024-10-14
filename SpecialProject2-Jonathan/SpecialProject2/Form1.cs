@@ -16,9 +16,12 @@ namespace SpecialProject2
     {
         Art art = new Art();
         Pen pen = new Pen(Color.Black, 2);
+        SolidBrush brush = new SolidBrush(Color.Black);
 
         Bitmap bm;
         Graphics g;
+
+        bool isClicked = false;
 
 
         public Form1()
@@ -27,7 +30,6 @@ namespace SpecialProject2
 
             bm = new Bitmap(canvas.Width, canvas.Height);
             g = Graphics.FromImage(bm);
-            g.Clear(Color.White);
             canvas.Image = bm;
         }
 
@@ -61,31 +63,75 @@ namespace SpecialProject2
 
         private void bDraw_Click(object sender, EventArgs e)
         {
+            int x = art.getButtonDrawX();
+            int y = art.getButtonDrawY();
+            int l = art.getLength();
+            int h = art.getHeight();
+
             switch (art.getDrawMode())
             {
-                case 0: //nothing
-                    break;
-                case 1: //rectangle
-                    g.DrawRectangle(pen, art.getButtonDrawX(), art.getButtonDrawY(), art.getLength(), art.getHeight());
+                case 0: //rectangle
+                    if (art.getFill() == false)
+                        g.DrawRectangle(pen, x, y, l, h);
+                    else
+                        g.FillRectangle(brush, x, y, l, h);
                     canvas.Refresh();
                     break;
-                case 2: //circle
+                case 1: //ellipse
+                    if (art.getFill() == false)
+                        g.DrawEllipse(pen, x, y, l, h);
+                    else
+                        g.FillEllipse(brush, x, y, l, h);
+                    canvas.Refresh();
                     break;
-                case 3: //triangle
+                case 2: //triangle
+                    Point[] tri = new Point[3]
+                    {
+                       new Point{X = x + l / 2, Y = y},
+                       new Point{X = x, Y = y + h},
+                       new Point{X = x + l, Y = y + h}
+                    };
+
+                    if (art.getFill() == false)
+                        g.DrawPolygon(pen, tri);
+                    else
+                        g.FillPolygon(brush, tri);
+                    canvas.Refresh();
                     break;
-                case 4: //line
+                case 3: //line
+                    g.DrawLine(pen, x, y, x + l, y + h);
+                    canvas.Refresh();
                     break;
             }
         }
 
+        private void bClear_Click(object sender, EventArgs e)
+        {
+            g.Clear(Color.White);
+            canvas.Refresh();
+        }
+
         private void cbModeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // 0 - nothing
-            // 1 - rectangle
-            // 2 - circle
-            // 3 - triangle
-            // 4 - line
-            art.setDrawMode(cbModeSelect.SelectedIndex + 1);
+            // 0 - rectangle
+            // 1 - ellipse
+            // 2 - triangle
+            // 3 - line
+            // 4 - free draw
+            art.setDrawMode(cbModeSelect.SelectedIndex);
+        }
+
+        private void cbFillSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbFillSelect.SelectedIndex == 0)
+                art.setFill(false);
+            else
+                art.setFill(true);
+        }
+
+        private void cbThickness_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pen.Width = (float)cbThickness.SelectedIndex + 1;
         }
 
         private void bColor_Click(object sender, EventArgs e)
@@ -95,18 +141,30 @@ namespace SpecialProject2
                 if (colorDialog.ShowDialog() == DialogResult.OK)
                 {
                     pen.Color = colorDialog.Color;
+                    brush.Color = colorDialog.Color;
                 }
             }
         }
 
+        private void bEraser_Click(object sender, EventArgs e)
+        {
+            pen.Color = Color.White;
+            brush.Color = Color.White;
+        }
+
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
+            isClicked = true;
+
             art.setMouseDrawX1(e.X);
             art.setMouseDrawY1(e.Y);
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
+            isClicked = false;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
+
             art.setMouseDrawX2(e.X);
             art.setMouseDrawY2(e.Y);
 
@@ -117,25 +175,56 @@ namespace SpecialProject2
 
             switch (art.getDrawMode())
             {
-                case 0: //nothing
-                    break;
-                case 1: //rectangle
-                    g.DrawRectangle(pen, Math.Min(x1, x2), Math.Min(y1, y2), Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+                case 0: //rectangle
+                    if(art.getFill() == false)
+                        g.DrawRectangle(pen, Math.Min(x1, x2), Math.Min(y1, y2), Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+                    else
+                        g.FillRectangle(brush, Math.Min(x1, x2), Math.Min(y1, y2), Math.Abs(x1 - x2), Math.Abs(y1 - y2));
                     canvas.Refresh();
                     break;
-                case 2: //circle
+                case 1: //ellipse
+                    if (art.getFill() == false)
+                        g.DrawEllipse(pen, Math.Min(x1, x2), Math.Min(y1, y2), Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+                    else
+                        g.FillEllipse(brush, Math.Min(x1, x2), Math.Min(y1, y2), Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+                    canvas.Refresh();
                     break;
-                case 3: //triangle
+                case 2: //triangle
+                    Point[] tri = new Point[3]
+                    {
+                       new Point{X = (x1 + x2) / 2, Y = y1},
+                       new Point{X = x1, Y = y2},
+                       new Point{X = x2, Y = y2}
+                    };
+
+                    if (art.getFill() == false)
+                        g.DrawPolygon(pen, tri);
+                    else
+                        g.FillPolygon(brush, tri);
+                    canvas.Refresh();
                     break;
-                case 4: //line
+                case 3: //line
+                    g.DrawLine(pen, x1, y1, x2, y2);
+                    canvas.Refresh();
                     break;
             }
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
+            if (isClicked == true && art.getDrawMode() == 4)
+            {
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                art.setMouseDrawX2(e.X);
+                art.setMouseDrawY2(e.Y);
+                g.DrawLine(pen, art.getMouseDrawX1(), art.getMouseDrawY1(), art.getMouseDrawX2(), art.getMouseDrawY2());
+                art.setMouseDrawX1(art.getMouseDrawX2());
+                art.setMouseDrawY1(art.getMouseDrawY2());
 
+                canvas.Refresh();
+            }
         }
+
     }
 }
 
